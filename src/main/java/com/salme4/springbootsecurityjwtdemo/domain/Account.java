@@ -17,7 +17,7 @@ public class Account {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
-    private Long social_id;
+    private Long socialId;
     private String profileHref;
 
     public Long getId() {
@@ -60,12 +60,12 @@ public class Account {
         this.role = role;
     }
 
-    public Long getSocial_id() {
-        return social_id;
+    public Long getSocialId() {
+        return socialId;
     }
 
-    public void setSocial_id(Long social_id) {
-        this.social_id = social_id;
+    public void setSocialId(Long socialId) {
+        this.socialId = socialId;
     }
 
     public String getProfileHref() {
