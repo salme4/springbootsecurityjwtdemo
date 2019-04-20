@@ -12,11 +12,11 @@ public class Account {
     @Id @GeneratedValue
     private Long id;
     private String name;
-    private String nickname;
-    private String password;
+    private String nickname = "dave";
+    private String password = "1234";
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
     private Long socialId;
     private String profileHref;
 

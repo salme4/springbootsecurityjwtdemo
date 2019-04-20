@@ -1,4 +1,4 @@
-package com.salme4.springbootsecurityjwtdemo.domain.security;
+package com.salme4.springbootsecurityjwtdemo.security;
 
 import com.salme4.springbootsecurityjwtdemo.domain.Account;
 import com.salme4.springbootsecurityjwtdemo.domain.AccountRepository;
@@ -20,7 +20,7 @@ public class AccountContextService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
-        Account account = accountRepository.findByIdNAndNickname(nickname).orElseThrow(() -> new NoSuchElementException("계정 없어요."));
+        Account account = accountRepository.findByNickname(nickname).orElseThrow(() -> new NoSuchElementException("계정 없어요."));
 
         return getAccountContext(account);
     }

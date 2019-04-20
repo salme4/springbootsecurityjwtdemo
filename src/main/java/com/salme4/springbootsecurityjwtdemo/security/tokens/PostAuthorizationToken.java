@@ -1,6 +1,6 @@
-package com.salme4.springbootsecurityjwtdemo.domain.security.tokens;
+package com.salme4.springbootsecurityjwtdemo.security.tokens;
 
-import com.salme4.springbootsecurityjwtdemo.domain.security.AccountContext;
+import com.salme4.springbootsecurityjwtdemo.security.AccountContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,6 +10,10 @@ public class PostAuthorizationToken extends UsernamePasswordAuthenticationToken 
 
     private PostAuthorizationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities) {
         super(principal, credentials, authorities);
+    }
+
+    public AccountContext getAccountContext() {
+        return (AccountContext)super.getPrincipal();
     }
 
     public static PostAuthorizationToken getTokenFromAccountContext(AccountContext context){

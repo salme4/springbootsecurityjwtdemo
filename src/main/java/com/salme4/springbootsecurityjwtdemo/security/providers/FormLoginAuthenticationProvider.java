@@ -1,26 +1,26 @@
-package com.salme4.springbootsecurityjwtdemo.domain.security.providers;
+package com.salme4.springbootsecurityjwtdemo.security.providers;
 
 import com.salme4.springbootsecurityjwtdemo.domain.Account;
 import com.salme4.springbootsecurityjwtdemo.domain.AccountRepository;
-import com.salme4.springbootsecurityjwtdemo.domain.security.AccountContext;
-import com.salme4.springbootsecurityjwtdemo.domain.security.AccountContextService;
-import com.salme4.springbootsecurityjwtdemo.domain.security.tokens.PostAuthorizationToken;
-import com.salme4.springbootsecurityjwtdemo.domain.security.tokens.PreAuthorizationToken;
+import com.salme4.springbootsecurityjwtdemo.security.AccountContext;
+import com.salme4.springbootsecurityjwtdemo.security.AccountContextService;
+import com.salme4.springbootsecurityjwtdemo.security.tokens.PostAuthorizationToken;
+import com.salme4.springbootsecurityjwtdemo.security.tokens.PreAuthorizationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 
+@Component
 public class FormLoginAuthenticationProvider implements AuthenticationProvider {
 
-    private final AccountContextService accountContextService;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
     public FormLoginAuthenticationProvider(AccountContextService accountContextService, AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
-        this.accountContextService = accountContextService;
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -38,6 +38,7 @@ public class FormLoginAuthenticationProvider implements AuthenticationProvider {
             //return Post authentication token.
             return PostAuthorizationToken.getTokenFromAccountContext(AccountContext.fromAccountModel(account));
         }
+        //인증이 왜 안됐는지 처리
         throw  new NoSuchElementException("아직은 인증 안돼");
     }
 
@@ -48,6 +49,6 @@ public class FormLoginAuthenticationProvider implements AuthenticationProvider {
 
     private boolean isCorrectPassword(String password, Account account){
         //matches 원본이 첫 번째 파라메터로 와야한다.
-        return passwordEncoder.matches(account.getPassword(), password);
+        return passwordEncoder.matches(password, account.getPassword());
     }
 }
